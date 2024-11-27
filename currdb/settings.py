@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'currapp.apps.CurrappConfig'
+    'currapp.apps.CurrappConfig',
 	'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',

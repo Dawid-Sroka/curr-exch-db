@@ -5,4 +5,4 @@ from django.contrib import admin
 from .models import Currency, ExchangeRateAtDate
 
 admin.site.register(Currency)
-admin.site.register(Currency, ExchangeRateAtDate)
+admin.site.register(ExchangeRateAtDate)

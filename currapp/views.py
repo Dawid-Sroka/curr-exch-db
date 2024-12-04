@@ -8,21 +8,20 @@ from datetime import datetime
 import yfinance as yf
 
 def fetch(request):
-    pairs = ["EURUSD", "USDJPY", "PLNUSD"]
+    currs = ["EUR", "USD", "PLN", "JPY"]
+    pairs = [c1+c2 for c1 in currs for c2 in currs if c1 != c2]
     for pair in pairs:
         ticker = pair + "=X"
 
         end_date = datetime.today().date()
-        start_date = "2024-11-25"
+        start_date = "2024-11-26"
 
-        data = yf.download(ticker, start=start_date, end=end_date)
+        yf_data = yf.download(ticker, start=start_date, end=end_date)
 
-        open_dict = data['Open'].dropna().to_dict()[ticker]
-        items = open_dict.items()
-        open_dict_formatted = {date.strftime('%Y-%m-%d'): rate for date, rate in items}
+        data = yf_data['Open'].dropna().to_dict()[ticker].items()
+        open_dict_formatted = {date.strftime('%Y-%m-%d'): rate for date, rate in data}
         for k, v in open_dict_formatted.items():
-            e = ExchangeRateAtDate(currency_pair=pair, exchange_rate=v, date=k)
-            e.save()
+            _ = ExchangeRateAtDate.objects.get_or_create(currency_pair=pair, exchange_rate=v, date=k)
     return HttpResponse("Hello, data has been fetched.")
 
 def currency(request):

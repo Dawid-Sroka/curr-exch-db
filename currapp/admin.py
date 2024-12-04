@@ -4,5 +4,9 @@ from django.contrib import admin
 
 from .models import Currency, ExchangeRateAtDate
 
+class ExchangeRateAtDateAdmin(admin.ModelAdmin):
+    fields = ["currency_pair"]
+    list_filter = ["currency_pair"]
+
 admin.site.register(Currency)
-admin.site.register(ExchangeRateAtDate)
+admin.site.register(ExchangeRateAtDate, ExchangeRateAtDateAdmin)

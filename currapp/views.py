@@ -9,6 +9,9 @@ import yfinance as yf
 
 def fetch(request):
     currs = ["EUR", "USD", "PLN", "JPY"]
+    for curr in currs:
+        c = Currency(code=curr)
+        c.save()
     pairs = [c1+c2 for c1 in currs for c2 in currs if c1 != c2]
     for pair in pairs:
         ticker = pair + "=X"
@@ -30,5 +33,5 @@ def currency(request):
 
 def currency_exchange(request, base_curr, arg_curr):
     target_pairs = ExchangeRateAtDate.objects.filter(currency_pair = base_curr + arg_curr)
-    newest = target_pairs.order_by("date").first()
+    newest = target_pairs.order_by("-date").first()
     return HttpResponse(json.dumps(newest.get_value()))

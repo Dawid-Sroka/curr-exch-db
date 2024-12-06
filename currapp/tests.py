@@ -43,7 +43,7 @@ class CurrencyExchangeViewTests(TestCase):
     def test_currency_exchange_returns_empty_dict_when_currency_not_in_db(self):
         response = self.client.get(reverse("currency_exchange", args=['USD', 'PLN']))
         self.assertEqual(response.status_code, 200)
-        self.assertJSONEqual(
+        self.assertEqual(
             str(response.content, encoding='utf8'),
-            {}    
+            "Sorry, this currency pair is not present in the database"
         )

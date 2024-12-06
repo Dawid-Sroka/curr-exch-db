@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from .models import Currency, ExchangeRateAtDate
-from .load_data import load_data_from_yf, load_recent_data_from_yf
+from .load_data import load_data_from_yf
 
 class CurrencyViewTests(TestCase):
     def test_currency_returns_three_currencies(self):
@@ -37,4 +37,12 @@ class CurrencyExchangeViewTests(TestCase):
         self.assertJSONEqual(
             str(response.content, encoding='utf8'),
             expected_exchange_rate    
+        )
+
+    def test_currency_exchange_returns_empty_dict_when_currency_not_in_db(self):
+        response = self.client.get(reverse("currency_exchange", args=['USD', 'PLN']))
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(
+            str(response.content, encoding='utf8'),
+            {}    
         )

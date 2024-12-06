@@ -30,6 +30,7 @@ class CurrencyViewTests(TestCase):
 
 class CurrencyExchangeViewTests(TestCase):
     def test_currency_exchange_returns_correct_value(self):
+        print() # just because fetching from yf overrides test name in terminal
         load_data_from_yf(["PLN", "USD"], "2024-12-02", "2024-12-05")
         expected_exchange_rate = {"currency_pair": "USDPLN", "exchange_rate": 4.083}
         response = self.client.get(reverse("currency_exchange", args=['USD', 'PLN']))

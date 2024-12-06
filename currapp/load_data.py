@@ -18,9 +18,6 @@ def load_data_from_yf(currs, start_date, end_date):
     for pair in pairs:
         ticker = pair + "=X"
 
-        end_date = datetime.today().date()
-        start_date = "2024-12-02"
-
         yf_data = yf.download(ticker, start=start_date, end=end_date)
 
         data = yf_data['Open'].dropna().to_dict()[ticker].items()

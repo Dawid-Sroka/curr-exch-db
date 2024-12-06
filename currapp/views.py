@@ -12,7 +12,7 @@ import yfinance as yf
 def fetch(request):
     currs = ["EUR", "USD", "PLN", "JPY"]
     load_recent_data_from_yf(currs)
-    return HttpResponse("Hello, data has been fetched.")
+    return HttpResponse(f'The server fetched data using yfinance about the following currencies: {currs}')
 
 def currency(request):
     output = Currency.objects.all()

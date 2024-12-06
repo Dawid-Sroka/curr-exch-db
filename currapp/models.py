@@ -13,7 +13,10 @@ class ExchangeRateAtDate(models.Model):
     date = models.DateTimeField("date registered")
 
     def get_value(self):
-        return {"currency_pair": self.currency_pair, "exchange_rate": round(self.exchange_rate, 3)}
+        return {
+            "currency_pair": self.currency_pair,
+            "exchange_rate": round(self.exchange_rate, 3)
+        }
 
     def __str__(self):
         return f'{self.currency_pair}: {self.exchange_rate:.3f} at {self.date}' 

@@ -6,6 +6,7 @@ To get started, execute the following commands:
 
 ```
 git clone git@github.com:Dawid-Sroka/curr-exch-db.git
+cd curr-exch-db
 python -m venv .venv
 python -m pip install -r requirements.txt
 python manage.py migrate

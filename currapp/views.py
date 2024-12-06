@@ -22,6 +22,6 @@ def currency_exchange(request, base_curr, arg_curr):
     target_pairs = ExchangeRateAtDate.objects.filter(currency_pair = base_curr + arg_curr)
     if target_pairs:
         newest = target_pairs.order_by("-date").first().get_value()
+        return HttpResponse(json.dumps(newest))
     else:
-        newest = {}
-    return HttpResponse(json.dumps(newest))
+        return HttpResponse("Sorry, this currency pair is not present in the database")
